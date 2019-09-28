@@ -42,12 +42,26 @@ class CLIBestBars::CLI
   end
 
   def print_bar(bar)
-
+    puts ""
+    puts "----------- #{bar.name} - #{bar.position} -----------"
+    puts ""
+    puts "Location:           #{bar.location}"
+    puts "Website:            #{restaurant.website_url}"
+    puts ""
+    puts "---------------Description--------------"
+    puts ""
+    puts "#{restaurant.description}"
+    puts ""
   end
 
 
   def print_bar(from_number)
-
+    puts ""
+    puts "---------- Bars #{from_number} - #{from_number+9} ----------"
+    puts ""
+    CLIBestBars::Bar.all[from_number-1, 10].each.with_index(from_number) do |bar, index|
+      puts "#{index}. #{bar.name} - #{bar.location}"
+    end
   end
 
 end
