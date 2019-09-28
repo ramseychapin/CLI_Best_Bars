@@ -1,0 +1,3 @@
+class CLIBestBars::Scraper
+
+end

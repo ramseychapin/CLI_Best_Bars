@@ -1,0 +1,3 @@
+class CLIBestBars::Bar
+
+end
