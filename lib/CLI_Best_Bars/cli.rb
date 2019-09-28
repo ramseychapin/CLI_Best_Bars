@@ -3,9 +3,6 @@ class CLIBestBars::CLI
     #CLIBestBars::Scraper.new.make_bars
     puts "Welcome to your Best Bars concierge.
     I am here to help you find which of the 50 best bars in the world you should frequent next."
-    #get_user_bar range or name
-    #get_bar_list
-    #user chooses bar from list
     start
   end
 
@@ -20,9 +17,9 @@ class CLIBestBars::CLI
     puts "What bar would you like to learn more about?"
     input = gets.strip
 
-    #bar = CLIBestBars::Bar.find(input.to_i)
+    bar = CLIBestBars::Bar.find(input.to_i)
 
-    #print_bar(bar)
+    print_bar(bar)
 
     puts ""
     puts "Would you like to learn about another bar? Enter Y or N"
@@ -46,7 +43,7 @@ class CLIBestBars::CLI
     puts "----------- #{bar.name} - #{bar.position} -----------"
     puts ""
     puts "Location:           #{bar.location}"
-    puts "Website:            #{restaurant.website_url}"
+    puts "Website:            #{bar.website_url}"
     puts ""
     puts "---------------Description--------------"
     puts ""
