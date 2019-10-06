@@ -6,10 +6,11 @@ class CLIBestBars::Bar
 
   def self.new_from_index_page(r)
     self.new(
-      r.css("a").text,
+      r.css("h2 a").text,
       r.css("h2").text,
-      r.css("a").attribute("href").text
+      r.css("h2 a").attribute("href").text
       )
+    binding.pry
   end
 
   def initialize(name=nil, rank=nil, url=nil)
