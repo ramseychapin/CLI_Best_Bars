@@ -1,6 +1,6 @@
 class CLIBestBars::CLI
   def call
-    #CLIBestBars::Scraper.new.make_bars
+    CLIBestBars::Scraper.new.make_bars
     puts "Welcome to your Best Bars concierge.
     I am here to help you find which of the 50 best bars in the world you should frequent next."
     main
@@ -50,44 +50,25 @@ class CLIBestBars::CLI
   end
 
 
-  # def print_bar_list(from_number)
-  #   puts ""
-  #   puts "---------- Bars #{from_number} - #{from_number+9} ----------"
-  #   puts ""
-  #   CLIBestBars::Bar.all[from_number-1, 10].each.with_index(from_number) do |bar, index|
-  #     puts "#{index}. #{bar.name} - #{bar.location}"
-  #   end
-  # end
-
   def print_bar_list(from_number)
     puts ""
-    puts "---------- Bars 1 - 9 ----------"
+    puts "---------- Bars #{from_number} - #{from_number+9} ----------"
     puts ""
+    CLIBestBars::Bar.all[from_number-1, 10].each.with_index(from_number) do |bar, index|
+      puts "#{index}. #{bar.name}"
+    end
   end
-
-  # def print_bar(bar)
-  #   puts ""
-  #   puts "----------- #{bar.name} - #{bar.position} -----------"
-  #   puts ""
-  #   puts "Location:           #{bar.location}"
-  #   puts "Website:            #{bar.website_url}"
-  #   puts ""
-  #   puts "---------------Description--------------"
-  #   puts ""
-  #   puts "#{bar.description}"
-  #   puts ""
-  # end
 
   def print_bar(bar)
     puts ""
-    puts "----------- Dead Rabbit - New York -----------"
+    puts "----------- #{bar.name}-----------"
     puts ""
-    puts "Location:           New York"
-    puts "Website:            www.deadrabbit.com"
+    # puts "Location:           #{bar.location}"
+    puts "Website:            #{bar.url}"
     puts ""
     puts "---------------Description--------------"
     puts ""
-    puts "supposed best bar in the city"
+    # puts "#{bar.description}"
     puts ""
   end
 end
