@@ -14,7 +14,7 @@ class CLIBestBars::CLI
 
   def bar_list
     puts ""
-    puts "What number bars would you like to see? 1-10, 11-20, 21-30, 31-40, or 41-50?"
+    puts "What number bars would you like to see? 1-10, 11-20, 21-30, 31-40, or 41-50 What rank of bars would you like to see? Input a number 1-50 and I will show you the bar and its neighbors :)."
     input = gets.strip.to_i
 
     print_bar_list(input)
@@ -51,12 +51,46 @@ class CLIBestBars::CLI
 
 
   def print_bar_list(from_number)
-    puts ""
-    puts "---------- Bars #{from_number} - #{from_number+9} ----------"
-    puts ""
-    CLIBestBars::Bar.all[from_number-1, 10].each.with_index(from_number) do |bar, index|
-      puts "#{index}. #{bar.name}"
-    end
+    case from_number
+      when 1..10
+        puts ""
+        puts "---------- Bars #{1} - #{10} ----------"
+        puts ""
+        CLIBestBars::Bar.all[0..10].each do |bar|
+          puts "#{bar.rank}. #{bar.name}"
+        end
+      when 11..20
+        puts ""
+        puts "---------- Bars #{11} - #{20} ----------"
+        puts ""
+        CLIBestBars::Bar.all[10..19].each do |bar|
+          puts "#{bar.rank}. #{bar.name}"
+        end
+      when 21..30
+        puts ""
+        puts "---------- Bars #{21} - #{30} ----------"
+        puts ""
+        CLIBestBars::Bar.all[20..29].each do |bar|
+          puts "#{bar.rank}. #{bar.name}"
+        end
+      when 31..40
+        puts ""
+        puts "---------- Bars #{31} - #{40} ----------"
+        puts ""
+        CLIBestBars::Bar.all[30..39].each do |bar|
+          puts "#{bar.rank}. #{bar.name}"
+        end
+      when 41..50
+        puts ""
+        puts "---------- Bars #{41} - #{50} ----------"
+        puts ""
+        CLIBestBars::Bar.all[40..49].each do |bar|
+          puts "#{bar.rank}. #{bar.name}"
+        end
+      else
+        puts "That is not a valid number!"
+        main
+      end  
   end
 
   def print_bar(bar)

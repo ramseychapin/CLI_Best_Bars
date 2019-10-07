@@ -7,8 +7,8 @@ class CLIBestBars::Bar
 
   def self.new_from_index_page(r)
     self.new(
-      r.css("a").text.downcase.capitalize,
-      r.css("h2[text]").text,
+      r.css("a").text.split(" ").map{|word| word.capitalize}.join(" "),
+      r.text[0..1].gsub(/[\s.]/ ,""),
       r.next_element.text,
       "https://www.worlds50bestbars.com/#{r.css("a").attribute("href").text}"
       )
