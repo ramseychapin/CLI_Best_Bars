@@ -1,8 +1,9 @@
 class CLIBestBars::CLI
   def call
     CLIBestBars::Scraper.new.make_bars
-    puts "Welcome to your Best Bars concierge.
-    I am here to help you find which of the 50 best bars in the world you should frequent next."
+    puts ""
+    puts "Welcome to your Best Bars concierge."
+    puts "I am here to help you find which of the 50 best bars in the world you should frequent next."
     main
   end
 
@@ -14,7 +15,7 @@ class CLIBestBars::CLI
 
   def bar_list
     puts ""
-    puts "What number bars would you like to see? 1-10, 11-20, 21-30, 31-40, or 41-50 What rank of bars would you like to see? Input a number 1-50 and I will show you the bar and its neighbors :)."
+    puts "What number bars would you like to see? 1-10, 11-20, 21-30, 31-40, or 41-50?"
     input = gets.strip.to_i
 
     print_bar_list(input)
@@ -22,20 +23,23 @@ class CLIBestBars::CLI
 
   def select_bar
     puts ""
-    puts "What bar would you like to learn more about?"
-    input = gets.strip
+    puts "What bar would you like to learn more about? Enter the rank number to continue."
+    input = gets.strip.to_i
 
-    bar = CLIBestBars::Bar.find(input.to_i)
-
-    print_bar(bar)
+    if input.between?(1,50)
+      bar = CLIBestBars::Bar.find(input)
+      print_bar(bar)
+    else
+      puts "Sorry, that is not a valid number!"
+      select_bar
+    end
   end
 
   def conclude
     puts ""
     puts "Would you like to learn about another bar? Enter Y or N"
-
-
     input = gets.strip.downcase
+
     if input == "y"
       main
     elsif input == "n"
@@ -49,48 +53,31 @@ class CLIBestBars::CLI
     end
   end
 
-
   def print_bar_list(from_number)
+    anchor_number = 0
     case from_number
       when 1..10
-        puts ""
-        puts "---------- Bars #{1} - #{10} ----------"
-        puts ""
-        CLIBestBars::Bar.all[0..10].each do |bar|
-          puts "#{bar.rank}. #{bar.name}"
-        end
+        anchor_number
       when 11..20
-        puts ""
-        puts "---------- Bars #{11} - #{20} ----------"
-        puts ""
-        CLIBestBars::Bar.all[10..19].each do |bar|
-          puts "#{bar.rank}. #{bar.name}"
-        end
+        anchor_number = 10
       when 21..30
-        puts ""
-        puts "---------- Bars #{21} - #{30} ----------"
-        puts ""
-        CLIBestBars::Bar.all[20..29].each do |bar|
-          puts "#{bar.rank}. #{bar.name}"
-        end
+        anchor_number = 20
       when 31..40
-        puts ""
-        puts "---------- Bars #{31} - #{40} ----------"
-        puts ""
-        CLIBestBars::Bar.all[30..39].each do |bar|
-          puts "#{bar.rank}. #{bar.name}"
-        end
+        anchor_number = 30
       when 41..50
-        puts ""
-        puts "---------- Bars #{41} - #{50} ----------"
-        puts ""
-        CLIBestBars::Bar.all[40..49].each do |bar|
-          puts "#{bar.rank}. #{bar.name}"
-        end
+        anchor_number = 40
       else
         puts "That is not a valid number!"
         main
-      end  
+    end
+
+    puts ""
+    puts "---------- Bars #{anchor_number} - #{anchor_number+9} ----------"
+    puts ""
+    CLIBestBars::Bar.all[anchor_number..anchor_number+9].each do |bar|
+      puts "#{bar.rank}. #{bar.name}"
+    end
+
   end
 
   def print_bar(bar)

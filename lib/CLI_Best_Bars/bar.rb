@@ -12,6 +12,7 @@ class CLIBestBars::Bar
       r.next_element.text,
       "https://www.worlds50bestbars.com/#{r.css("a").attribute("href").text}"
       )
+
   end
 
   def initialize(name=nil, rank=nil, location = nil, url=nil)
@@ -20,6 +21,7 @@ class CLIBestBars::Bar
     @location = location
     @url = url
     @@all << self
+    
   end
 
   def self.all
@@ -31,20 +33,20 @@ class CLIBestBars::Bar
   end
 
   def description
-    @description ||= doc.css("div.rightContent").css("p")[1].text
+    @description ||= doc.css("p")[1].text
     
   end
 
   def website_url
-    @website_url ||= doc.css("div.rightContent").css("h2").css("a").attribute("href").text
+    @website_url ||= doc.css("h2").css("a").attribute("href").text
   end
 
   def address
-    @address ||= doc.css("div.rightContent").css("p")[0].text
+    @address ||= doc.css("p")[0].text
   end
 
   def doc
-    @doc ||= Nokogiri::HTML(open(self.url))
+    @doc ||= Nokogiri::HTML(open(self.url)).css("div.rightContent")
   end
 
 end
