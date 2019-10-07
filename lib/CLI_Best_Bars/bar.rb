@@ -1,24 +1,25 @@
 class CLIBestBars::Bar
 
-  attr_accessor :name, :rank, :url, :website_url, :description
+  attr_accessor :name, :rank, :url, :location
+  attr_reader :descripton, :website_url, :address
 
   @@all = []
 
   def self.new_from_index_page(r)
     self.new(
-      r.css("h2 a").text,
-      r.css("h2").text,
-      r.css("h2 a").attribute("href").text
+      r.css("a").text.downcase.capitalize,
+      r.css("h2[text]").text,
+      r.next_element.text,
+      "https://www.worlds50bestbars.com/#{r.css("a").attribute("href").text}"
       )
-    binding.pry
   end
 
-  def initialize(name=nil, rank=nil, url=nil)
+  def initialize(name=nil, rank=nil, location = nil, url=nil)
     @name = name
     @rank = rank
+    @location = location
     @url = url
     @@all << self
-    #binding.pry
   end
 
   def self.all
@@ -27,6 +28,23 @@ class CLIBestBars::Bar
 
   def self.find(id)
     @@all[id-1]
+  end
+
+  def description
+    @description ||= doc.css("div.rightContent").css("p")[1].text
+    
+  end
+
+  def website_url
+    @website_url ||= doc.css("div.rightContent").css("h2").css("a").attribute("href").text
+  end
+
+  def address
+    @address ||= doc.css("div.rightContent").css("p")[0].text
+  end
+
+  def doc
+    @doc ||= Nokogiri::HTML(open(self.url))
   end
 
 end

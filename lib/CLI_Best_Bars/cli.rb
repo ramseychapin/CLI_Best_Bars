@@ -63,12 +63,12 @@ class CLIBestBars::CLI
     puts ""
     puts "----------- #{bar.name}-----------"
     puts ""
-    # puts "Location:           #{bar.location}"
-    puts "Website:            #{bar.url}"
+    puts "Location:           #{bar.location}"
+    puts "Website:            #{bar.website_url}"
     puts ""
     puts "---------------Description--------------"
     puts ""
-    # puts "#{bar.description}"
+    puts "#{bar.description}"
     puts ""
   end
 end

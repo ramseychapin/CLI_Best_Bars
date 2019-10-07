@@ -6,6 +6,7 @@ class CLIBestBars::Scraper
 
   def scrape_bars_index
     self.get_page.css("div.rightContent h2")
+    
   end
 
   def make_bars
